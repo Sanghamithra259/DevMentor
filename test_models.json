@@ -1,0 +1,155 @@
+{
+  "github_cloner/config.py": {
+    "classes": [
+      {
+        "name": "Settings",
+        "line": 3
+      }
+    ],
+    "functions": [],
+    "imports": [
+      {
+        "name": "import os",
+        "line": 1
+      }
+    ]
+  },
+  "github_cloner/main.py": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "lifespan",
+        "line": 18
+      },
+      {
+        "name": "clone_repo_endpoint",
+        "line": 35
+      }
+    ],
+    "imports": [
+      {
+        "name": "import os",
+        "line": 1
+      },
+      {
+        "name": "import uuid",
+        "line": 2
+      },
+      {
+        "name": "import asyncio",
+        "line": 3
+      },
+      {
+        "name": "from datetime import datetime",
+        "line": 4
+      },
+      {
+        "name": "from datetime import timedelta",
+        "line": 4
+      },
+      {
+        "name": "from datetime import timezone",
+        "line": 4
+      },
+      {
+        "name": "from fastapi import FastAPI",
+        "line": 5
+      },
+      {
+        "name": "from fastapi import HTTPException",
+        "line": 5
+      },
+      {
+        "name": "from fastapi import BackgroundTasks",
+        "line": 5
+      },
+      {
+        "name": "from contextlib import asynccontextmanager",
+        "line": 6
+      },
+      {
+        "name": "from config import settings",
+        "line": 8
+      },
+      {
+        "name": "from models import CloneRequest",
+        "line": 9
+      },
+      {
+        "name": "from models import CloneResponse",
+        "line": 9
+      },
+      {
+        "name": "from services import validate_github_url",
+        "line": 10
+      },
+      {
+        "name": "from services import clone_repository",
+        "line": 10
+      },
+      {
+        "name": "from services import cleanup_task",
+        "line": 10
+      },
+      {
+        "name": "from services import cleanup_stale_directories_worker",
+        "line": 10
+      },
+      {
+        "name": "import shutil",
+        "line": 60
+      }
+    ]
+  },
+  "github_cloner/services.py": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "validate_github_url",
+        "line": 9
+      },
+      {
+        "name": "clone_repository",
+        "line": 43
+      },
+      {
+        "name": "cleanup_task",
+        "line": 53
+      },
+      {
+        "name": "cleanup_stale_directories_worker",
+        "line": 65
+      }
+    ],
+    "imports": [
+      {
+        "name": "import os",
+        "line": 1
+      },
+      {
+        "name": "import shutil",
+        "line": 2
+      },
+      {
+        "name": "import time",
+        "line": 3
+      },
+      {
+        "name": "import asyncio",
+        "line": 4
+      },
+      {
+        "name": "import httpx",
+        "line": 5
+      },
+      {
+        "name": "from git import Repo",
+        "line": 6
+      },
+      {
+        "name": "from config import settings",
+        "line": 7
+      }
+    ]
+  }
+}
