@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d2" for="edge" attr.name="type" attr.type="string" />
+  <key id="d1" for="node" attr.name="label" attr.type="string" />
+  <key id="d0" for="node" attr.name="type" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="github_cloner/config.py">
+      <data key="d0">File</data>
+      <data key="d1">github_cloner/config.py</data>
+    </node>
+    <node id="github_cloner/config.py:Settings">
+      <data key="d0">Class</data>
+      <data key="d1">Settings</data>
+    </node>
+    <node id="module:os">
+      <data key="d0">Module</data>
+      <data key="d1">os</data>
+    </node>
+    <node id="github_cloner/main.py">
+      <data key="d0">File</data>
+      <data key="d1">github_cloner/main.py</data>
+    </node>
+    <node id="github_cloner/main.py:lifespan">
+      <data key="d0">Function</data>
+      <data key="d1">lifespan</data>
+    </node>
+    <node id="github_cloner/main.py:clone_repo_endpoint">
+      <data key="d0">Function</data>
+      <data key="d1">clone_repo_endpoint</data>
+    </node>
+    <node id="module:uuid">
+      <data key="d0">Module</data>
+      <data key="d1">uuid</data>
+    </node>
+    <node id="module:asyncio">
+      <data key="d0">Module</data>
+      <data key="d1">asyncio</data>
+    </node>
+    <node id="module:datetime.datetime">
+      <data key="d0">Module</data>
+      <data key="d1">datetime.datetime</data>
+    </node>
+    <node id="module:datetime.timedelta">
+      <data key="d0">Module</data>
+      <data key="d1">datetime.timedelta</data>
+    </node>
+    <node id="module:datetime.timezone">
+      <data key="d0">Module</data>
+      <data key="d1">datetime.timezone</data>
+    </node>
+    <node id="module:fastapi.FastAPI">
+      <data key="d0">Module</data>
+      <data key="d1">fastapi.FastAPI</data>
+    </node>
+    <node id="module:fastapi.HTTPException">
+      <data key="d0">Module</data>
+      <data key="d1">fastapi.HTTPException</data>
+    </node>
+    <node id="module:fastapi.BackgroundTasks">
+      <data key="d0">Module</data>
+      <data key="d1">fastapi.BackgroundTasks</data>
+    </node>
+    <node id="module:contextlib.asynccontextmanager">
+      <data key="d0">Module</data>
+      <data key="d1">contextlib.asynccontextmanager</data>
+    </node>
+    <node id="module:config.settings">
+      <data key="d0">Module</data>
+      <data key="d1">config.settings</data>
+    </node>
+    <node id="module:models.CloneRequest">
+      <data key="d0">Module</data>
+      <data key="d1">models.CloneRequest</data>
+    </node>
+    <node id="module:models.CloneResponse">
+      <data key="d0">Module</data>
+      <data key="d1">models.CloneResponse</data>
+    </node>
+    <node id="module:services.validate_github_url">
+      <data key="d0">Module</data>
+      <data key="d1">services.validate_github_url</data>
+    </node>
+    <node id="module:services.clone_repository">
+      <data key="d0">Module</data>
+      <data key="d1">services.clone_repository</data>
+    </node>
+    <node id="module:services.cleanup_task">
+      <data key="d0">Module</data>
+      <data key="d1">services.cleanup_task</data>
+    </node>
+    <node id="module:services.cleanup_stale_directories_worker">
+      <data key="d0">Module</data>
+      <data key="d1">services.cleanup_stale_directories_worker</data>
+    </node>
+    <node id="module:shutil">
+      <data key="d0">Module</data>
+      <data key="d1">shutil</data>
+    </node>
+    <node id="github_cloner/services.py">
+      <data key="d0">File</data>
+      <data key="d1">github_cloner/services.py</data>
+    </node>
+    <node id="github_cloner/services.py:validate_github_url">
+      <data key="d0">Function</data>
+      <data key="d1">validate_github_url</data>
+    </node>
+    <node id="github_cloner/services.py:clone_repository">
+      <data key="d0">Function</data>
+      <data key="d1">clone_repository</data>
+    </node>
+    <node id="github_cloner/services.py:cleanup_task">
+      <data key="d0">Function</data>
+      <data key="d1">cleanup_task</data>
+    </node>
+    <node id="github_cloner/services.py:cleanup_stale_directories_worker">
+      <data key="d0">Function</data>
+      <data key="d1">cleanup_stale_directories_worker</data>
+    </node>
+    <node id="module:time">
+      <data key="d0">Module</data>
+      <data key="d1">time</data>
+    </node>
+    <node id="module:httpx">
+      <data key="d0">Module</data>
+      <data key="d1">httpx</data>
+    </node>
+    <node id="module:git.Repo">
+      <data key="d0">Module</data>
+      <data key="d1">git.Repo</data>
+    </node>
+    <edge source="github_cloner/config.py" target="github_cloner/config.py:Settings">
+      <data key="d2">CONTAINS</data>
+    </edge>
+    <edge source="github_cloner/config.py" target="module:os">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="github_cloner/main.py:lifespan">
+      <data key="d2">CONTAINS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="github_cloner/main.py:clone_repo_endpoint">
+      <data key="d2">CONTAINS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:os">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:uuid">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:asyncio">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:datetime.datetime">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:datetime.timedelta">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:datetime.timezone">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:fastapi.FastAPI">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:fastapi.HTTPException">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:fastapi.BackgroundTasks">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:contextlib.asynccontextmanager">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:config.settings">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:models.CloneRequest">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:models.CloneResponse">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:services.validate_github_url">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:services.clone_repository">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:services.cleanup_task">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:services.cleanup_stale_directories_worker">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/main.py" target="module:shutil">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="github_cloner/services.py:validate_github_url">
+      <data key="d2">CONTAINS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="github_cloner/services.py:clone_repository">
+      <data key="d2">CONTAINS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="github_cloner/services.py:cleanup_task">
+      <data key="d2">CONTAINS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="github_cloner/services.py:cleanup_stale_directories_worker">
+      <data key="d2">CONTAINS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="module:os">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="module:shutil">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="module:time">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="module:asyncio">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="module:httpx">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="module:git.Repo">
+      <data key="d2">IMPORTS</data>
+    </edge>
+    <edge source="github_cloner/services.py" target="module:config.settings">
+      <data key="d2">IMPORTS</data>
+    </edge>
+  </graph>
+</graphml>
