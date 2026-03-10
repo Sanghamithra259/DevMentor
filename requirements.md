@@ -1,151 +1,112 @@
-# DevMentor AI — Requirements Specification
-
-## 1. Project Overview
-
-DevMentor AI is an AI-powered system that helps developers understand, explore, and work with unfamiliar codebases faster. The platform combines repository analysis, architecture explanation, debugging assistance, and learning-oriented guidance into a single interactive experience.
-
-The goal is to reduce onboarding time, improve comprehension, and support developers in learning while building.
-
----
-
-## 2. Problem Statement
-
-Developers often struggle when joining new projects or open-source repositories due to:
-
-- Lack of clear documentation
-- Complex architectures
-- Unclear file relationships
-- Difficult debugging processes
-- Steep learning curves for beginners
-
-Existing AI coding tools focus primarily on generating code rather than helping users understand systems.
-
----
-
-## 3. Objectives
-
-- Help users quickly understand large or unfamiliar codebases.
-- Provide layered explanations suitable for different skill levels.
-- Assist debugging through guided reasoning rather than direct fixes.
-- Automatically generate and maintain documentation.
-- Improve developer productivity while reinforcing learning.
-
----
-
-## 4. Target Users
-
-### Primary Users
-- Students and beginners learning software development
-- Developers onboarding into new projects
-- Open-source contributors
-- Hackathon teams
-
-### Secondary Users
-- Engineering teams maintaining legacy systems
-- Technical educators and mentors
-
----
-
-## 5. Functional Requirements
-
-### 5.1 Repository Ingestion
-- Accept repository uploads or Git URLs.
-- Parse project structure and file hierarchy.
-- Detect programming languages and frameworks.
-- Build dependency relationships.
-
-### 5.2 Architecture Explorer
-- Generate visual representation of modules and dependencies.
-- Identify entry points (main files, APIs, services).
-- Explain system flow in human-readable form.
-
-### 5.3 AI Code Explanation
-- Explain files, functions, and modules.
-- Provide multiple explanation levels:
-  - Beginner
-  - Intermediate
-  - Advanced
-- Highlight purpose, inputs, outputs, and role in system.
-
-### 5.4 Intelligent Code Search
-- Natural language queries such as:
-  - “Where is authentication handled?”
-  - “How does data flow to the database?”
-- Return relevant files and explanation.
-
-### 5.5 Debugging Mentor
-- Analyze error logs and stack traces.
-- Suggest possible root causes.
-- Provide reasoning-based guidance.
-- Offer step-by-step debugging workflow.
-
-### 5.6 Documentation Assistant
-- Generate README summaries.
-- Create module-level documentation.
-- Detect undocumented functions/classes.
-- Suggest documentation improvements.
-
-### 5.7 Learning Mode
-- Guided walkthrough of repository.
-- Recommended learning path through files.
-- Concept explanations tied to actual code.
-- Interactive hints instead of direct solutions.
-
-### 5.8 Knowledge Graph Generation
-- Map relationships between:
-  - Files
-  - Modules
-  - Functions
-  - Services
-- Enable impact analysis for code changes.
-
----
-
-## 6. Non-Functional Requirements
-
-### Performance
-- Repository parsing must complete within acceptable time for medium-sized projects.
-- AI responses should feel near real-time.
-
-### Scalability
-- Must support multiple repositories.
-- Modular architecture for adding new features.
-
-### Usability
-- Simple interface for first-time users.
-- Minimal setup friction.
-
-### Reliability
-- Consistent explanations based on repository context.
-- Prevent hallucinated file references.
-
-### Security
-- Secure handling of private repositories.
-- Temporary storage or user-controlled data retention.
-
----
-
-## 7. Constraints
-
-- Must operate within limited compute for hackathon prototype.
-- Initial version supports popular languages (Python, JavaScript, TypeScript, C/C++).
-- AI explanations depend on extracted repository context.
-
----
-
-## 8. Success Metrics
-
-- Reduced time to understand project structure.
-- User ability to locate relevant files faster.
-- Improvement in debugging efficiency.
-- Positive usability feedback during demos.
-
----
-
-## 9. Future Enhancements
-
-- IDE integration.
-- Team collaboration insights.
-- Technical debt analysis.
-- Pull request explanation summaries.
-- Personalized learning memory over time.
+annotated-doc==0.0.4
+annotated-types==0.7.0
+anyio==4.12.1
+attrs==25.4.0
+bcrypt==5.0.0
+build==1.4.0
+certifi==2026.2.25
+charset-normalizer==3.4.5
+chromadb==1.5.4
+click==8.3.1
+distro==1.9.0
+durationpy==0.10
+fastapi==0.135.1
+filelock==3.25.1
+flatbuffers==25.12.19
+fsspec==2026.2.0
+googleapis-common-protos==1.73.0
+grpcio==1.78.0
+h11==0.16.0
+hf-xet==1.3.2
+httpcore==1.0.9
+httptools==0.7.1
+httpx==0.28.1
+huggingface_hub==1.6.0
+idna==3.11
+importlib_metadata==8.7.1
+importlib_resources==6.5.2
+Jinja2==3.1.6
+jiter==0.13.0
+joblib==1.5.3
+jsonpatch==1.33
+jsonpointer==3.0.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+kubernetes==35.0.0
+langchain-chroma==1.1.0
+langchain-core==1.2.18
+langchain-huggingface==1.2.1
+langchain-openai==1.1.11
+langsmith==0.7.16
+Levenshtein==0.27.3
+markdown-it-py==4.0.0
+MarkupSafe==3.0.3
+mdurl==0.1.2
+mmh3==5.2.1
+mpmath==1.3.0
+networkx==3.6.1
+numpy==2.4.3
+oauthlib==3.3.1
+onnxruntime==1.24.3
+openai==2.26.0
+opentelemetry-api==1.40.0
+opentelemetry-exporter-otlp-proto-common==1.40.0
+opentelemetry-exporter-otlp-proto-grpc==1.40.0
+opentelemetry-proto==1.40.0
+opentelemetry-sdk==1.40.0
+opentelemetry-semantic-conventions==0.61b0
+orjson==3.11.7
+overrides==7.7.0
+packaging==26.0
+protobuf==6.33.5
+pybase64==1.4.3
+pydantic==2.12.5
+pydantic-settings==2.13.1
+pydantic_core==2.41.5
+Pygments==2.19.2
+PyPika==0.51.1
+pyproject_hooks==1.2.0
+python-dateutil==2.9.0.post0
+python-dotenv==1.2.2
+python-Levenshtein==0.27.3
+PyYAML==6.0.3
+rank-bm25==0.2.2
+RapidFuzz==3.14.3
+referencing==0.37.0
+regex==2026.2.28
+requests==2.32.5
+requests-oauthlib==2.0.0
+requests-toolbelt==1.0.0
+rich==14.3.3
+rpds-py==0.30.0
+safetensors==0.7.0
+scikit-learn==1.8.0
+scipy==1.17.1
+sentence-transformers==5.2.3
+setuptools==82.0.1
+shellingham==1.5.4
+six==1.17.0
+sniffio==1.3.1
+starlette==0.52.1
+sympy==1.14.0
+tenacity==9.1.4
+thefuzz==0.22.1
+threadpoolctl==3.6.0
+tiktoken==0.12.0
+tokenizers==0.22.2
+torch==2.10.0+cpu
+tqdm==4.67.3
+transformers==5.3.0
+typer==0.24.1
+typing-inspection==0.4.2
+typing_extensions==4.15.0
+urllib3==2.6.3
+uuid_utils==0.14.1
+uvicorn==0.41.0
+uvloop==0.22.1
+watchfiles==1.1.1
+websocket-client==1.9.0
+websockets==16.0
+xxhash==3.6.0
+zipp==3.23.0
+zstandard==0.25.0

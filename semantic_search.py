@@ -5,6 +5,14 @@ import argparse
 try:
     import chromadb
     from sentence_transformers import SentenceTransformer
+    from rank_bm25 import BM25Okapi
+    from dotenv import load_dotenv
+    from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+    from langchain_core.prompts import ChatPromptTemplate
+    from langchain_core.output_parsers import StrOutputParser
+    
+    # Load environment variables (to grab the HF Token)
+    load_dotenv()
     HAS_DEPS = True
 except ImportError:
     HAS_DEPS = False
@@ -128,38 +136,101 @@ def build_vector_db(directory, db_path="chroma_db", collection_name="codebase"):
     )
     
     print("Indexing complete! Data stored in ChromaDB.")
-    return collection, model
+    
+    # Generate the BM25 model for the exact same chunks
+    tokenized_corpus = [doc.lower().split(" ") for doc in texts]
+    bm25_model = BM25Okapi(tokenized_corpus)
+    
+    return collection, model, bm25_model, all_chunks
 
-def search_codebase(query, collection, model, top_k=3):
+def search_codebase(query, collection, model, bm25_model, all_chunks, top_k=2):
     print(f"\n=============================================")
-    print(f"🔎 SEARCHING FOR: '{query}'")
+    print(f"🔎 HYBRID SEARCHING FOR: '{query}'")
     print(f"=============================================")
     
+    matched_docs = []
+    
+    # 1. SEMANTIC SEARCH LOGIC
     query_embedding = model.encode([query]).tolist()
-    results = collection.query(
+    semantic_results = collection.query(
         query_embeddings=query_embedding,
         n_results=top_k
     )
     
-    if not results['documents'][0]:
-        print("No results found.")
+    if semantic_results['documents'] and semantic_results['documents'][0]:
+        print("\n--- Semantic Results (Intent Matching) ---")
+        for i in range(len(semantic_results['documents'][0])):
+            metadata = semantic_results['metadatas'][0][i]
+            doc = semantic_results['documents'][0][i]
+            matched_docs.append(doc)
+            print(f"🎯 Semantic Match: {metadata['filepath']} | {metadata['type']} {metadata['name']}")
+            print('\n'.join(doc.split('\n')[:4]) + "\n...")
+            
+    # 2. KEYWORD (BM25) SEARCH LOGIC
+    tokenized_query = query.lower().split(" ")
+    bm25_scores = bm25_model.get_scores(tokenized_query)
+    
+    # Sort BM25 chunks cleanly
+    top_bm25_indexes = sorted(range(len(bm25_scores)), key=lambda i: bm25_scores[i], reverse=True)[:top_k]
+    
+    print("\n--- Keyword Results (Exact/Sub-string Matching) ---")
+    for idx in top_bm25_indexes:
+        if bm25_scores[idx] > 0: # Only if it's a real match
+            chunk = all_chunks[idx]
+            matched_docs.append(chunk["text"])
+            meta = chunk["metadata"]
+            print(f"🔑 Keyword Match: {meta['filepath']} | {meta['type']} {meta['name']} (Score: {bm25_scores[idx]:.2f})")
+            print('\n'.join(chunk["text"].split('\n')[:4]) + "\n...")
+            
+    # Remove duplicates from the list exactly matching
+    matched_docs = list(set(matched_docs))
+            
+    # 3. AI GENERATED SUMMARY
+    if not matched_docs:
+        print("No matches were identified in the codebase.")
         return
         
-    for i in range(len(results['documents'][0])):
-        score = results['distances'][0][i] if 'distances' in results and results['distances'] else "N/A"
-        metadata = results['metadatas'][0][i]
-        doc = results['documents'][0][i]
+    print("\n--- AI Generating Summary of Context ---")
+    
+    api_key = os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+    if not api_key:
+        print("⚠ HUGGINGFACEHUB_API_TOKEN environment variable not set. Skipping AI summary analysis.")
+        return
         
-        print(f"\n🎯 Result {i+1} (Distance: {score:.4f}):")
-        print(f"   File: {metadata['filepath']} | Type: {metadata['type']} | Name: {metadata['name']} | Lines: {metadata['start_line']}-{metadata['end_line']}")
-        print("-" * 60)
-        # Print a snippet of the code
-        lines = doc.split('\n')
-        snippet = '\n'.join(lines[:10])
-        print(snippet)
-        if len(lines) > 10:
-            print("   ...")
-        print("-" * 60)
+    combined_context = "\n\n=== CODE BLOCK ===\n".join(matched_docs)
+    
+    prompt_template = """
+    A user has searched a codebase with the query: "{query}"
+
+    Here are the isolated sections of the code that matched hybrid logic (Keywords and Intents):
+    {context}
+
+    Based heavily on the provided text, what is the answer to the user's query? 
+    Briefly explain how these code blocks fit directly into answering what they requested. Do not make up answers. Keep it highly concise.
+    """
+
+    prompt = ChatPromptTemplate.from_template(prompt_template)
+    
+    # Instantiate the LLM 
+    llm = HuggingFaceEndpoint(
+        repo_id="Qwen/Qwen2.5-72B-Instruct",
+        huggingfacehub_api_token=api_key,
+        task="conversational",
+        temperature=0.1,
+        max_new_tokens=1024,
+        return_full_text=False
+    )
+    chat_model = ChatHuggingFace(llm=llm)
+    chain = prompt | chat_model | StrOutputParser()
+    
+    try:
+        response = chain.invoke({
+            "query": query,
+            "context": combined_context
+        })
+        print(f"\n🤖 AI Summary:\n{response}\n")
+    except Exception as e:
+        print(f"\n❌ Error contacting HuggingFace LLM: {str(e)}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Semantic Code Search Pipeline")
@@ -168,13 +239,13 @@ if __name__ == "__main__":
     parser.add_argument("--db-path", default="chroma_db", help="Path to store the vector database")
     args = parser.parse_args()
     
-    collection, model = build_vector_db(args.directory, db_path=args.db_path)
+    collection, model, bm25_model, all_chunks = build_vector_db(args.directory, db_path=args.db_path)
     
-    if collection and model:
+    if collection and model and bm25_model:
         if args.query:
-            search_codebase(args.query, collection, model)
+            search_codebase(args.query, collection, model, bm25_model, all_chunks)
         else:
             # Run some default test queries
             print("\nRunning sample semantic searches...")
-            search_codebase("How is the GitHub URL validated?", collection, model)
-            search_codebase("Database settings and background workers", collection, model)
+            search_codebase("How is the GitHub URL validated?", collection, model, bm25_model, all_chunks)
+            search_codebase("where is the login logic?", collection, model, bm25_model, all_chunks)
